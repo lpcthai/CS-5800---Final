@@ -12,7 +12,7 @@ participant SnoozedState
 
 Manager -> IdleState : Start in Idle state
 activate IdleState
-IdleState -> RingingState : Trigger alert
+IdleState -> RingingState : Time to reminder
 deactivate IdleState
 activate RingingState
 RingingState -> Senior : Play alert sound
