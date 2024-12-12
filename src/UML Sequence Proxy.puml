@@ -1,0 +1,26 @@
+@startuml
+title Sequence Diagram - Proxy Pattern
+
+
+actor FamilyMemberApp as App
+participant SeniorDeviceProxy as Proxy
+participant SeniorDevice as Device
+
+
+App -> Proxy : Request activity log
+activate Proxy
+Proxy -> Proxy : Check cache
+alt Data in cache
+   Proxy -> App : Return cached data
+else Data not in cache
+   Proxy -> Device : Fetch data
+   activate Device
+   Device -> Proxy : Return data
+   deactivate Device
+   Proxy -> App : Return data
+   Proxy -> Proxy : Cache response
+end
+deactivate Proxy
+
+
+@enduml

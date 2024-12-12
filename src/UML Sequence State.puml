@@ -1,0 +1,30 @@
+State sequence
+@startuml
+title Sequence Diagram - State Pattern
+
+
+actor Senior
+participant ReminderStateManager as Manager
+participant IdleState
+participant RingingState
+participant SnoozedState
+
+
+Manager -> IdleState : Start in Idle state
+activate IdleState
+IdleState -> RingingState : Trigger alert
+deactivate IdleState
+activate RingingState
+RingingState -> Senior : Play alert sound
+Senior -> RingingState : Snooze alert
+RingingState -> SnoozedState : Transition to Snoozed state
+deactivate RingingState
+activate SnoozedState
+SnoozedState -> Manager : Reschedule reminder
+deactivate SnoozedState
+Manager -> IdleState : Return to Idle state
+activate IdleState
+
+
+@enduml
+
