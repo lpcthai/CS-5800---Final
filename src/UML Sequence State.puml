@@ -1,3 +1,4 @@
+State sequence
 @startuml
 title Sequence Diagram - State Pattern
 
@@ -23,4 +24,8 @@ SnoozedState -> Manager : Reschedule reminder
 deactivate SnoozedState
 Manager -> IdleState : Return to Idle state
 activate IdleState
+<<<<<<< HEAD
 @enduml
+=======
+@enduml
+>>>>>>> d09cc40 (Update)
