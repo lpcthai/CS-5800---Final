@@ -1,0 +1,93 @@
+@startuml
+class Reminder {
+  - time: String
+  - description: String
+  - priority: int
+  + Reminder(time: String, description: String, priority: int)
+  + getTime(): String
+  + snooze(): void
+  + cancel(): void
+  + notify(): void
+}
+class MedicationReminder {
+  + notify(): void
+}
+class AppointmentReminder {
+  + notify(): void
+}
+class ReminderFactory {
+  + createReminder(type: String, time: String, description: String, priority: int): Reminder
+}
+ReminderFactory --> "1" Reminder
+Reminder <|-- MedicationReminder
+Reminder <|-- AppointmentReminder
+
+class ReminderState {
+  + handle(): void
+}
+class IdleState {
+  + handle(): void
+}
+class RingingState {
+  + handle(): void
+}
+class SnoozedState {
+  + handle(): void
+}
+class ReminderStateManager {
+  - state: ReminderState
+  + setState(state: ReminderState): void
+  + getCurrentState(): ReminderState
+  + alert(): void
+  + transitionTo(nextState: ReminderState): void
+}
+ReminderStateManager *-- "1" ReminderState
+ReminderState <|-- IdleState
+ReminderState <|-- RingingState
+ReminderState <|-- SnoozedState
+ReminderStateManager --> Reminder
+
+' Notification System (Observer Pattern)
+class Observer {
+  + update(reminderStatus: String): void
+}
+class SeniorDeviceNotifier {
+  - observers: List<Observer>
+  - reminderStatus: String
+  + addObserver(observer: Observer): void
+  + removeObserver(observer: Observer): void
+  + notifyObservers(): void
+  + setReminderStatus(status: String): void
+  + getReminderStatus(): String
+}
+class FamilyAppNotifier {
+  + update(reminderStatus: String): void
+}
+SeniorDeviceNotifier o-- "*" Observer
+Observer <|-- FamilyAppNotifier
+
+' Device Management System (Proxy Pattern)
+interface SeniorDevice {
+  + getActivityLog(): String
+}
+class SeniorDeviceImpl {
+  + getActivityLog(): String
+}
+class SeniorDeviceProxy {
+  - realDevice: SeniorDevice
+  - cache: String
+  + getActivityLog(): String
+  + clearCache(): void
+}
+class FamilyMemberApp {
+  + requestActivityLog(): void
+}
+FamilyMemberApp --> "1" SeniorDeviceProxy
+SeniorDeviceProxy *-- "1" SeniorDevice
+SeniorDevice <|-- SeniorDeviceImpl
+
+' Connections Between Subsystems
+SeniorDeviceNotifier --> Reminder
+FamilyMemberApp --> SeniorDeviceNotifier
+@enduml
+

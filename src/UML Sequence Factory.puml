@@ -1,0 +1,19 @@
+@startuml
+title Sequence Diagram - Factory Pattern
+
+actor User
+participant ReminderFactory
+participant MedicationReminder
+participant AppointmentReminder
+
+User -> ReminderFactory: Request reminder creation (type, time, description, priority)
+ReminderFactory -> ReminderFactory: Check reminder type
+alt MedicationReminder
+    ReminderFactory -> MedicationReminder: Create MedicationReminder
+    ReminderFactory -> User: Return MedicationReminder
+else AppointmentReminder
+    ReminderFactory -> AppointmentReminder: Create AppointmentReminder
+    ReminderFactory -> User: Return AppointmentReminder
+end
+
+@enduml

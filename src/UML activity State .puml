@@ -1,0 +1,22 @@
+@startuml
+title Activity Diagram - State Pattern
+start
+:Reminder starts in Idle state;
+if (Time to reminder?) then (Yes)
+  :Transition to Ringing state;
+  :Play alert sound;
+  if (Snooze alert?) then (Yes)
+    :Transition to Snoozed state;
+    :Reschedule reminder;
+    :Return to Idle state;
+  else (No)
+    :Reminder completed or dismissed;
+    :End the reminder;
+  endif
+else (No)
+  :Remain in Idle state;
+endif
+
+stop
+
+@enduml

@@ -1,0 +1,15 @@
+@startuml
+title Activity Diagram - Proxy Pattern
+start
+:FamilyMemberApp requests Activity Log;
+:Check if data in cache (SeniorDeviceProxy);
+if (Data in cache?) then (Yes)
+  :Return cached data;
+else (No)
+  :Forward request to SeniorDeviceImpl;
+  :Request data from SeniorDevice;
+  :Store data in cache (SeniorDeviceProxy);
+  :Return requested data to FamilyMemberApp;
+endif
+stop
+@enduml

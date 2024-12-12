@@ -1,0 +1,15 @@
+@startuml
+title Activity Diagram - Observer Pattern
+start
+:Senior marks reminder as "Completed";
+:Update reminder status in SeniorDeviceNotifier;
+:notifyObservers();
+if (Any Observers?) then (Yes)
+  :Notify FamilyAppNotifier;
+  :Update family apps;
+else (No)
+  :End of process;
+endif
+stop
+
+@enduml

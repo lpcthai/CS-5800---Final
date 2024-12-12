@@ -1,0 +1,14 @@
+@startuml
+title Sequence Diagram - Observer Pattern
+
+actor Senior
+participant SeniorDeviceNotifier
+participant FamilyAppNotifier
+
+Senior -> SeniorDeviceNotifier: Mark reminder as completed
+SeniorDeviceNotifier -> SeniorDeviceNotifier: Update reminder status
+SeniorDeviceNotifier -> FamilyAppNotifier: Notify reminder status change
+FamilyAppNotifier -> FamilyAppNotifier: Update family app
+SeniorDeviceNotifier -> FamilyAppNotifier: Return updated status
+
+@enduml

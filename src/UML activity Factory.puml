@@ -1,0 +1,20 @@
+@startuml
+title Activity Diagram - Factory Pattern
+
+start
+:Input received (type, time, description, priority);
+:Send input to ReminderFactory;
+if (Type: MedicationReminder?) then (Yes)
+  :Create MedicationReminder;
+else (No)
+  if (Type:AppointmentReminder?) then (Yes)
+    :Create AppointmentReminder;
+  else (No)
+    :Handle unknown reminder type;
+  endif
+endif
+:Return created reminder;
+:Schedule reminder in system;
+
+stop
+@enduml
